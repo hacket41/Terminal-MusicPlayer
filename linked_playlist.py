@@ -1,6 +1,3 @@
-# Doubly linked list for playlist (Week 4)
-
-
 class Node:
     def __init__(self, song):
         self.song = song
@@ -34,3 +31,4 @@ class PlaylistLinkedList:
         if self.current and self.current.prev:
             self.current = self.current.prev
         return self.current.song if self.current else None
+

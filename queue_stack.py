@@ -1,16 +1,32 @@
-# Queues, priority queue, and stack (Week 5)
 import heapq
 from collections import deque
+
+import pygame
 
 play_next_queue = deque()  # Queue
 party_mode_heap = []  # Priority Queue
 history_stack = []  # Stack
 
+# Initialize mixer
+pygame.mixer.init()
+
+current_channel = None  # to keep track of current song
+
 
 def play_song(song):
+    global current_channel
     if song:
-        print(f"▶️ Now Playing: {song['title']} - {song['artist']}")
-        history_stack.append(song)
+        file = song.get("file")
+        if not file:
+            print(f"❌ File path not found for {song['title']}")
+            return
+        try:
+            pygame.mixer.music.load(file)
+            pygame.mixer.music.play()
+            print(f"▶️ Now Playing: {song['title']} - {song['artist']}")
+            history_stack.append(song)
+        except Exception as e:
+            print(f"❌ Could not play {song['title']}: {e}")
 
 
 def play_next_feature(song):
@@ -19,7 +35,7 @@ def play_next_feature(song):
 
 
 def party_mode_upvote(song, priority):
-    heapq.heappush(party_mode_heap, (-priority, song))  # max heap
+    heapq.heappush(party_mode_heap, (-priority, song))
     print(f"🎉 '{song['title']}' upvoted with priority {priority}!")
 
 

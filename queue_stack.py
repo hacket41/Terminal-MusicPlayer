@@ -3,30 +3,20 @@ from collections import deque
 
 import pygame
 
+pygame.init()
+pygame.mixer.init()
+
 play_next_queue = deque()  # Queue
 party_mode_heap = []  # Priority Queue
 history_stack = []  # Stack
 
-# Initialize mixer
-pygame.mixer.init()
-
-current_channel = None  # to keep track of current song
-
 
 def play_song(song):
-    global current_channel
     if song:
-        file = song.get("file")
-        if not file:
-            print(f"❌ File path not found for {song['title']}")
-            return
-        try:
-            pygame.mixer.music.load(file)
-            pygame.mixer.music.play()
-            print(f"▶️ Now Playing: {song['title']} - {song['artist']}")
-            history_stack.append(song)
-        except Exception as e:
-            print(f"❌ Could not play {song['title']}: {e}")
+        pygame.mixer.music.load(song["file"])
+        pygame.mixer.music.play()
+        print(f"▶️ Now Playing: {song['title']} - {song['artist']}")
+        history_stack.append(song)
 
 
 def play_next_feature(song):

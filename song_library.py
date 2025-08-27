@@ -3,7 +3,7 @@ import os
 from mutagen.easyid3 import EasyID3
 from mutagen.mp3 import MP3
 
-MUSIC_DIR = os.path.expanduser("~/Downloads/Songs")
+MUSIC_DIR = os.path.expanduser("~/Downloads/Songs")  # Replace with your music directory
 song_library = []
 
 
